@@ -3,6 +3,7 @@ const { getContact,postContact, putContact, deleteContact } = require('../contro
 
 const express = require('express');
 const router = express.Router();
+router.use( (req,res,next)=>{console.log("Middleware function inside router "),next()} )
 
 router.route('/').get(getContact);
 

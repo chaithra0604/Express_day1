@@ -1,19 +1,32 @@
-const express=require('express');
-const dotenv=require('dotenv').config()
-const app=express();
+const express = require('express');
+const dotenv = require('dotenv').config()
+const port = process.env.PORT || 3000;
+const app = express();
+const contactRouter = require('./routes/contactRouter');
+const connectDb = require('./config/dbConnection');
+connectDb();
 app.use(express.json());
-const port=process.env.PORT||3000;
 
-app.listen(port,()=>{
-    console.log(`Server is running on ${port}`);
+//MIDDLEWARE FUNCTION
+//app.use((req, res, next) => { console.log(`${req.url}`,`${req.method}`,Date.now()),
+//next() })
+
+app.get('/',(req,res)=>{
+      res.status(200).json({
+        "message":"message from server.js"
+      });
 });
 
-/*app.get('/api/contacts',(req,res)=>{
-      res.status(200).json({
-        "message":"get all contacts"
-      });
-});*/
 
-const contactRouter = require('./routes/contactRouter');
-app.use('/api/contacts',contactRouter);
+app.use('/api/contacts', contactRouter);
 
+app.listen(port, () => {
+  console.log(`Server is running on ${port}`);
+});
+
+
+
+
+
+//npm install mongodb
+//mongodb+srv://chaithrags:chaimongo213!@chaithrags.qvqteun.mongodb.net/?retryWrites=true&w=majority

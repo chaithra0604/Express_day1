@@ -1,11 +1,21 @@
+
+const contactSchema = require('../model/contactSchema');
+
 const getContact = (req,res)=>{
+ 
     res.status(200).json({
         "message":"get all contacts"
       });
     };
 
 
-const postContact = (req, res) => {               
+const postContact = async (req, res) => {   
+  const { name,email,phone } = req.body;
+  const contact = contactSchema.create({
+            name : name,
+            phone : phone,
+            email:email
+  });            
     res.status(200).json({
       "message": `created contact ${req.body.name}`
     });
